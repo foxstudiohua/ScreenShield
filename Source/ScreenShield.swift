@@ -122,7 +122,11 @@ public struct ProtectScreenshot: ViewModifier {
 
 public extension View {
     func protectScreenshot() -> some View {
+#if DEBUG
+        self
+#else
         modifier(ProtectScreenshot())
+#endif
     }
 }
 
@@ -168,7 +172,8 @@ final class ScreenshotProtectingHostingViewController<Content: View>: UIViewCont
         
         let hostVC = UIHostingController(rootView: content())
         hostVC.view.translatesAutoresizingMaskIntoConstraints = false
-        
+        hostVC.view.backgroundColor = .clear
+
         addChild(hostVC)
         wrapperView.setup(contentView: hostVC.view)
         hostVC.didMove(toParent: self)
