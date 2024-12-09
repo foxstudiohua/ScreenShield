@@ -31,12 +31,14 @@ public class ScreenShield {
                 self?.blockingScreenMessage = errMessage
             }
             
+#if !DEBUG
             let isRecording = change.newValue ?? false
             if isRecording {
                 self?.addBlurView()
             } else {
                 self?.removeBlurView()
             }
+#endif
         }
     }
     
